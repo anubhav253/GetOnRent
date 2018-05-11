@@ -104,6 +104,7 @@ def is_logged_in(f):
     return wrap
 
 @app.route('/logout')
+@is_logged_in
 def logout():
     session.clear()
     flash('You are now logged out', 'success')
@@ -113,6 +114,7 @@ def logout():
 @is_logged_in
 def dashboard():
     return render_template('dashboard.html')
+
 
 if __name__ == '__main__':
     app.secret_key='secret123'

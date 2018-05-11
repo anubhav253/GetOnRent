@@ -2,4 +2,11 @@
 
 {% block body %}
   <h1>Dashboard<small> Welcome  {{session.username}}</small></h1>
+  <p>Select from following options</p>
+  <ul>
+      <li><a class="text text-success" href="/bike">Bike</a></li>
+      <li><a class="text text-success" href="/car">Car</a></li>
+      <li><a class="text text-success" href="/furniture">Furniture</a></li>
+    </ul>
+<hr>
 {% endblock %}
