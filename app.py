@@ -3,8 +3,13 @@ from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
+from flask_session import Session
+import os
 
 app = Flask(__name__)
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = os.urandom(24)
+Session(app)
 
 dataCon = json.load(open('config.json'))
 dbCred = dataCon["dbCred"]
@@ -117,5 +122,4 @@ def dashboard():
 
 
 if __name__ == '__main__':
-    app.secret_key='secret123'
     app.run(debug=True)
