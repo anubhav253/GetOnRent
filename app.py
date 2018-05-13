@@ -45,9 +45,28 @@ class RegisterForm(Form):
     ])
     confirm = PasswordField('Confirm Password')
 
-@app.route('/product')
-def product():
-    return render_template('product.html')
+@app.route('/products')
+def products():
+
+    cur = mysql.connection.cursor()
+
+    result = cur.execute("SELECT * FROM bikes")
+    products = cur.fetchall()
+
+    if result > 0:
+        return render_template('products.html', products=products)
+    else:
+        msg = 'No Articles found.'
+        return render_template('products.html', msg=msg)
+    
+    cur.close()
+
+@app.route('/product/<string:id>/')
+def product(id):
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM bikes where id = %s", [id])
+    product = cur.fetchone()
+    return render_template('product.html', product=product)
 
 # User Register
 @app.route('/register', methods=['GET', 'POST'])

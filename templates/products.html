@@ -1,0 +1,27 @@
+{% extends 'layout.html' %} {% block body %}
+<h1>Bikes</h1>
+<ul class="list-group">
+    {% for product in products %}
+    <!-- <li class="list-group-item"> -->
+    <!-- <div>
+            <a href="product/{{product.id}}">{{product.comapany}} {{product.model}}</a>
+            <p>Price - {{product.price}} pm</p>
+        </div> -->
+    <a href="/product/{{product.id}}">
+    <div class="card card-layout">
+        <img class="card-img-top" height="180" width="100%" src="https://imgd.aeplcdn.com/476x268/n/bw/models/colors/honda-activa-4g-pearl-amazing-white-1490892532101.jpg"
+            alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-title">{{product.comapany}} {{product.model}}</h4>
+            <p class="card-text">
+                <B>Price</B> - {{product.price}} pm</p>
+            <p class="card-text block-with-text">
+                <I>{{product.description}}</I>
+            </p>
+        </div>
+    </div>
+    </a>
+    <!-- </li> -->
+    {% endfor %}
+</ul>
+{% endblock %}
