@@ -45,6 +45,9 @@ class RegisterForm(Form):
     ])
     confirm = PasswordField('Confirm Password')
 
+@app.route('/product')
+def product():
+    return render_template('product.html')
 
 # User Register
 @app.route('/register', methods=['GET', 'POST'])
@@ -85,7 +88,7 @@ def login():
                 session['username'] = username
 
                 flash('You are now logged in.', 'success')
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('profile'))
             else:
                 error = 'Invalid user'
                 return render_template('login.html', error=error)
@@ -115,10 +118,10 @@ def logout():
     flash('You are now logged out', 'success')
     return redirect(url_for('login'))
 
-@app.route('/dashboard')
+@app.route('/profile')
 @is_logged_in
-def dashboard():
-    return render_template('dashboard.html')
+def profile():
+    return render_template('profile.html')
 
 
 if __name__ == '__main__':
