@@ -1,5 +1,69 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} {% block body %}
+<div class="row">
+  <div class="col-xs-5 item-photo">
+    <img style="max-width:100%;" src="https://imgd.aeplcdn.com/476x268/n/bw/models/colors/honda-activa-4g-pearl-amazing-white-1490892532101.jpg"
+    />
+  </div>
+  <div class="col-xs-5" style="border:0px solid gray">
+    <!-- Datos del vendedor y titulo del producto -->
+    <h2 style="font-family: -webkit-pictograph;">{{product.comapany}} {{product.model}}</h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td><B> Monthly Rent</B></td>
+          <td>₹{{product.price}}</td>
+        </tr>
+        <tr>
+          <td><B>Purchased Year</B></td>
+          <td>{{product.year}}</td>
+        </tr>
+        <tr>
+          <td><B>KM Driven</B></td>
+          <td>{{product.kmdrive}}</td>
+        </tr>
+        <tr>
+          <td><B>Security Deposit</B></td>
+          <td>₹{{product.deposit}}**</td>
+        </tr>
+        <tr>
+          <td><B>Availability in</B></td>
+          <td>{{product.city}}</td>
+        </tr>
+      </tbody>
+    </table>
 
-{% block body %}
-  <h1>{{product.comapany}} {{product.model}}</h1>
+    <!-- Botones de compra -->
+    <div class="section" style="padding-bottom:20px;">
+      <button class="btn btn-success" style="width: 100%">
+        <span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Buy</button>
+      <h5>
+        <a href="#">
+          <span class="glyphicon glyphicon-heart-empty" style="cursor:pointer;"></span> Wishlist</a>
+      </h5>
+    </div>
+  </div>
+
+  <div class="col-xs-9" style="margin-left: 8%">
+    <div style="width:100%;border-top:1px solid silver">
+      <p style="padding:15px;">
+          {{product.description}}
+      </p>
+      <ul>
+        <li>Fuel Type : Petrol</li>
+        <li>Fuel Delivery System : Carburetor</li>
+        <li>CC / BHP : 346 / 14.8</li>
+        <li>Displacement : 346cc</li>
+        <li>Max Torque : 28 Nm@ 4000 rpm</li>
+        <li>Gearbox Type : 5 Speed Constant Mesh</li>
+        <li>Transistorized Coil Ignition</li>
+        <li>Color : Subject to availability</li>
+      </ul>
+      <small>
+          <p style="padding:15px;">
+              The security deposit is refundable or partially refundable in case of any damage done to the product.
+          </p>
+      </small>
+    </div>
+  </div>
+</div>
 {% endblock %}
