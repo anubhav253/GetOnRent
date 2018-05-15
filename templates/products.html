@@ -4,7 +4,7 @@
     {% for product in products %}
     <a href="/product/{{product.id}}">
     <div class="card card-layout">
-        <img class="card-img-top" height="180" width="100%" src="https://imgd.aeplcdn.com/476x268/n/bw/models/colors/honda-activa-4g-pearl-amazing-white-1490892532101.jpg"
+        <img class="card-img-top" height="180" width="100%" src='{{ url_for("static",filename="bikes/" + product.aliasName + ".jpg") }}'
             alt="Card image cap">
         <div class="card-body">
             <h4 class="card-title">{{product.comapany}} {{product.model}}</h4>
