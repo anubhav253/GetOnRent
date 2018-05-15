@@ -1,7 +1,7 @@
 {% extends 'layout.html' %} {% block body %}
 <div class="row">
-  <div class="col-xs-5 item-photo">
-    <img class="card-img-top" style="margin: 100px" height="100%" width="80%" src='{{ url_for("static",filename="bikes/" + product.aliasName + ".jpg") }}'
+  <div class="col-xs-6 item-photo">
+    <img class="card-img-top" style="margin-top: 5%; margin-left: 4%" height="100%" width="100%" src='{{ url_for("static",filename="bikes/" + product.aliasName + ".jpg") }}'
       alt="Card image cap">
   </div>
   <div class="col-xs-5" style="border:0px solid gray">
@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <div class="col-xs-9" style="margin-left: 8%">
+  <div class="col-xs-11" style="margin-left: 2%">
     <div style="width:100%;border-top:1px solid silver">
       <p style="padding:15px;">
         {{product.description}}
@@ -72,7 +72,7 @@
       </ul>
       <small>
         <p style="padding:15px;">
-          The security deposit is refundable or partially refundable in case of any damage done to the product.
+          **The security deposit is refundable or partially refundable in case of any damage done to the product.
         </p>
       </small>
     </div>
