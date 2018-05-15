@@ -142,6 +142,10 @@ def logout():
 def profile():
     return render_template('profile.html')
 
+@app.route('/buy')
+@is_logged_in
+def buy():
+    return render_template('buy.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
