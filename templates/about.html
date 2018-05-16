@@ -1,6 +1,20 @@
-{% extends 'layout.html' %}
-
-{% block body %}
-  <h1>About Us</h1>
-  <p>Beginners</p>
+{% extends 'layout.html' %} {% block body %}
+<div class="row">
+  <h3>Why GetOnRent?</h3>
+  <p>Now a days peoples are moving to places for sorter period of time. GetOnRent making the life easier for these peoples by providing them bikes on rent.</p>
+  <div class="col-xs-3" style="border:0px solid gray; margin-top: 5%">
+    <img class="card-img-top" height="100%" width="100%" src="{{ url_for('static',filename='images/anubhav.jpg') }}" alt="Card image cap">
+  </div>
+  <div class="col-xs-3" style="border:0px solid gray; margin-top: 5%">
+    <h3>Anubhav Kumar</h3>
+    <small style="color: chocolate">Full Stack Developer</small>
+  </div>
+  <div class="col-xs-3" style="border:0px solid gray; margin-top: 5%">
+      <img class="card-img-top" height="100%" width="100%" src="{{ url_for('static',filename='images/anubhav.jpg') }}" alt="Card image cap">
+    </div>
+    <div class="col-xs-3" style="border:0px solid gray; margin-top: 5%">
+      <h3>Anubhav Kumar</h3>
+      <small style="color: chocolate">Full Stack Developer</small>
+    </div>
+</div>
 {% endblock %}

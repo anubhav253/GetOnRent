@@ -1,6 +1,39 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} {% block body %}
+<h1 align="center">Contact Us</h1>
+{% from "includes/_formhelpers.html" import render_field %}
+<div class="row">
+  <div class="col-xs-5" style="border:0px solid gray">
+    {% from "includes/_formhelpers.html" import render_field %}
+    <form method='POST' action="">
+        <div class="form-group">
+            {{render_field(form.name, class_="form-control",minlength="1", maxlength="50")}}
+        </div>
+        <div class="form-group">
+                {{render_field(form.email, class_="form-control", minlength="6", maxlength="50")}}
+        </div>
+        <div class="form-group">
+                {{render_field(form.subject, class_="form-control", minlength="4", maxlength="25")}}
+        </div>
+        <div class="form-group">
+                {{render_field(form.message, class_="form-control", maxlength="10")}}
+        </div>
+        <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+    </form>
 
-{% block body %}
-  <h1>Contact Us</h1>
-  <p>Email</p>
+
+  </div>
+
+  <div class="col-xs-5" style="border:1px solid gray; background-color: lightsteelblue; margin-top: 2%; margin-left: 3%">
+      <h4><B>We are here to help!</B></h4>
+      <h5>Call us on: "" (10 AM to 8PM)</h5>
+      <h5>Email us on: "" </h5>
+      <br>
+      <h4><B>GetOnRent Office Address</B></h4>
+      <p>
+        -------
+      </p>
+  
+  
+    </div>
+</div>
 {% endblock %}
