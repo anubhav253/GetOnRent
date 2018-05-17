@@ -1,60 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>GetOnRent</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="{% include './css/style.css' %}"> -->
-    <style>
-      .block-with-text {
-        overflow: hidden;
-        position: relative;
-        line-height: 1em;
-        max-height: 3em;
-        text-align: justify;
-        margin-right: 1em;
-        padding-right: 1em;
-      }
-      .block-with-text:before {
-        content: '...';
-        position: absolute;
-        right: 0;
-        bottom: 0;
-      }
-      .block-with-text:after {
-        content: '';
-        position: absolute;
-        right: 0;
-        width: 1em;
-        height: 1em;
-        margin-top: 0.2em;
-        background: white;
-      }
-      .card-layout{
-        width: 30%;
-        float: left;
-        margin-right: 20px;
-        margin-bottom: 10px;
-        border: solid; 
-        border-width:1px; 
-        padding: 5px;
-      }
-      a:visited, a:link {
-          text-decoration: none;
-          color: black
-      }
-      a:hover {
-        color: red;
-      }
-    </style>
-  </head>
-  <body>
-    {% include 'includes/_navbar.html' %}
-    <div class="container">
-      {% include 'includes/_messages.html' %}
-      {% block body %}{% endblock %}
-    </div>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>GetOnRent</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="{% include './css/style.css' %}"> -->
+  <style>
+    .block-with-text {
+      overflow: hidden;
+      position: relative;
+      line-height: 1em;
+      max-height: 3em;
+      text-align: justify;
+      margin-right: 1em;
+      padding-right: 1em;
+    }
+
+    .block-with-text:before {
+      content: '...';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+
+    .block-with-text:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      width: 1em;
+      height: 1em;
+      margin-top: 0.2em;
+      background: white;
+    }
+
+    .card-layout {
+      width: 30%;
+      float: left;
+      margin-right: 20px;
+      margin-bottom: 10px;
+      border: solid;
+      border-width: 1px;
+      padding: 5px;
+    }
+
+    a:visited,
+    a:link {
+      text-decoration: none;
+      color: black
+    }
+
+    a:hover {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  {% include 'includes/_navbar.html' %}
+  <div class="container">
+    {% include 'includes/_messages.html' %} {% block body %}{% endblock %}
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+<footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white" style="margin-top: 5%">Copyright &copy; Your Website 2018</p>
+    </div>
+  </footer>
+
+
 </html>
