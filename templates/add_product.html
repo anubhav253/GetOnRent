@@ -1,0 +1,41 @@
+{% extends 'layout.html' %} {% block body %}
+<h1>Add Product</h1>
+{% from "includes/_formhelpers.html" import render_field %}
+<form method="POST" action="">
+    <div class="form-group">
+        {{ render_field(form.comapany, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.model, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.year, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.kmdrive, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.price, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.description, class_="form-control", id="editor") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.deposit, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.address, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.city, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.aliasName, class_="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.details, class_="form-control", id="editor") }}
+    </div>
+    <p>
+        <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+{% endblock %}

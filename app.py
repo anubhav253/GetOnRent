@@ -123,8 +123,17 @@ def login():
         if result > 0:
             data = cur.fetchone()
             password = data['password']
+            role = data['role']
 
-            if sha256_crypt.verify(password_candidate, password):
+            if (sha256_crypt.verify(password_candidate, password)) and (role == 1):
+                session['logged_in'] = True
+                session['username'] = username
+                session["admin"] = True
+
+                flash('You are now logged in.', 'success')
+                return redirect(url_for('profile'))
+
+            elif sha256_crypt.verify(password_candidate, password):
                 session['logged_in'] = True
                 session['username'] = username
 
@@ -152,6 +161,19 @@ def is_logged_in(f):
             return redirect(url_for('login'))
     return wrap
 
+def is_admin(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'admin' in session:
+            return f(*args, **kwargs)
+        elif 'logged_in' in session:
+            flash('Unauthorized, Please login with correct username', 'danger')
+            return redirect(url_for('login'))
+        else:
+            flash('Unauthorized, Please login', 'danger')
+            return redirect(url_for('login'))
+    return wrap
+
 @app.route('/logout')
 @is_logged_in
 def logout():
@@ -164,10 +186,59 @@ def logout():
 def profile():
     return render_template('profile.html')
 
+
+@app.route('/admin')
+@is_admin
+def admin():
+    return render_template('admin.html')
+
 @app.route('/buy')
 @is_logged_in
 def buy():
     return render_template('buy.html')
+
+class AddProduct(Form):
+    comapany = StringField('Comapany', [validators.Length(min=1, max=100)])
+    model = StringField('Body', [validators.Length(min=5, max=100)])
+    year = StringField('Year', [validators.Length(max=4)])
+    kmdrive = StringField('Km Driven', [validators.Length(max=6)])
+    price = StringField('Price', [validators.Length(max=6)])
+    description = TextAreaField('Description', [validators.Length(max=500)])
+    deposit = StringField('Deposit', [validators.Length(max=6)])
+    address = StringField('Address', [validators.Length(max=150)])
+    city = StringField('City', [validators.Length(max=30)])
+    aliasName = StringField('Alias Name', [validators.Length(max=50)])
+    details = TextAreaField('Details', [validators.Length(max=500)])
+
+# Add Article
+@app.route('/add_product', methods=['GET', 'POST'])
+@is_logged_in
+def add_product():
+    form = AddProduct(request.form)
+    if request.method == 'POST' and form.validate():
+        comapany = form.comapany.data
+        model = form.model.data
+        year = form.year.data
+        kmdrive = form.kmdrive.data
+        price = form.price.data
+        description = form.description.data
+        deposit = form.deposit.data
+        address = form.address.data
+        city = form.city.data
+        aliasName = form.aliasName.data
+        details = form.details.data
+
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO bikes(comapany, model, year, kmdrive, price, description, deposit, address, city, aliasName, details) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",(comapany, model, year, kmdrive, price, description, deposit, address, city, aliasName, details))
+        mysql.connection.commit()
+        cur.close()
+
+        flash('Product added', 'success')
+
+        return redirect(url_for('products'))
+
+    return render_template('add_product.html', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)
