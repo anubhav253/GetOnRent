@@ -1,4 +1,8 @@
 {% extends 'layout.html' %} {% block body %}
+<div class="jumbotron text-center">
+    <h1>Welcome To GetOnRent</h1>
+    <p class="lead">This application is built on the Python Flask framework.Buy bike,car,furniture etc on rent.</p>
+</div>
 <h1 align="center">Contact Us</h1>
 {% from "includes/_formhelpers.html" import render_field %}
 <div class="row col-xs-6">
@@ -8,34 +12,40 @@
             {{render_field(form.name, class_="form-control",minlength="1", maxlength="50")}}
         </div>
         <div class="form-group">
-                {{render_field(form.email, class_="form-control", minlength="6", maxlength="100")}}
+            {{render_field(form.email, class_="form-control", minlength="6", maxlength="100")}}
         </div>
         <div class="form-group">
-                {{render_field(form.subject, class_="form-control", minlength="4", maxlength="150")}}
+            {{render_field(form.subject, class_="form-control", minlength="4", maxlength="150")}}
         </div>
         <div class="form-group">
-                {{render_field(form.message, class_="form-control", maxlength="1000")}}
+            {{render_field(form.message, class_="form-control", maxlength="1000")}}
         </div>
-        <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+        <p>
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </p>
     </form>
 
 
-  </div>
+</div>
 
-  <div class="col-xs-5" style="border:1px solid gray; padding-left: 4%;background-color: #313131; color: #fff; height: 340px; margin-top: 2%; margin-left: 3%">
-      <br>
-      <h4><B>We are here to help!</B></h4>
-      <h5>Call us on: 8769418092 (10 AM to 8PM)</h5>
-      <h5>Email us on: support@getonrent.info </h5>
-      <br>
-      <h4><B>GetOnRent Office Address</B></h4>
-      <p>
-        110/A, Vyas Apartment<br>
-        Pratap Nagar, Sector-11<br>
-        Jaipur, Rajasthan
-      </p>
-  
-  
-    </div>
+<div class="col-xs-5" style="border:1px solid gray; padding-left: 4%;background-color: #313131; color: #fff; height: 340px; margin-top: 2%; margin-left: 3%">
+    <br>
+    <h4>
+        <B>We are here to help!</B>
+    </h4>
+    <h5>Call us on: 8769418092 (10 AM to 8PM)</h5>
+    <h5>Email us on: support@getonrent.info </h5>
+    <br>
+    <h4>
+        <B>GetOnRent Office Address</B>
+    </h4>
+    <p>
+        110/A, Vyas Apartment
+        <br> Pratap Nagar, Sector-11
+        <br> Jaipur, Rajasthan
+    </p>
+
+
+</div>
 </div>
 {% endblock %}
