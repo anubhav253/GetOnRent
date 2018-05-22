@@ -10,24 +10,31 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="{{ url_for('static',filename='bikes/royal-enfield-classific-350.jpg') }}" class="img-responsive center-block" alt="">
-      <div class="carousel-caption">
-        <h3 style="color: red">Royal Enfield Classic 350</h3>
-      </div>
+      <a href="/product/1">
+        <img src="{{ url_for('static',filename='bikes/royal-enfield-classic-350.jpg') }}" class="img-responsive center-block" alt=""
+          style="width: 100%">
+        <div class="carousel-caption">
+          <h3 style="color: red">Royal Enfield Classic 350</h3>
+        </div>
+      </a>
     </div>
 
     <div class="item">
-      <img src="{{ url_for('static',filename='bikes/bajaj-pulsar-150.jpg') }}" class="img-responsive center-block" alt="">
-      <div class="carousel-caption">
-        <h3 style="color: red">Bajaj Pulsar 150</h3>
-      </div>
+      <a href="/product/3">
+        <img src="{{ url_for('static',filename='bikes/bajaj-pulsar-150.jpg') }}" class="img-responsive center-block" alt="" style="width: 100%">
+        <div class="carousel-caption">
+          <h3 style="color: red">Bajaj Pulsar 150</h3>
+        </div>
+      </a>
     </div>
 
     <div class="item">
-      <img src="{{ url_for('static',filename='bikes/honda-activa.jpg') }}" class="img-responsive center-block" alt="">
-      <div class="carousel-caption">
-        <h3 style="color: red">Honda Activa</h3>
-      </div>
+      <a href="/product/2">
+        <img src="{{ url_for('static',filename='bikes/honda-activa.jpg') }}" class="img-responsive center-block" alt="" style="width: 100%">
+        <div class="carousel-caption">
+          <h3 style="color: red">Honda Activa</h3>
+        </div>
+      </a>
     </div>
   </div>
 
