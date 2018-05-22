@@ -1,8 +1,6 @@
 {% extends 'layout.html' %} {% block body %}
-<div class="jumbotron text-center">
-    <h1>Welcome To GetOnRent</h1>
-    <p class="lead">This application is built on the Python Flask framework.Buy bike,car,furniture etc on rent.</p>
-</div>
+{% include 'includes/header.html' %}
+
 <h1 align="center">Contact Us</h1>
 {% from "includes/_formhelpers.html" import render_field %}
 <div class="row col-xs-6">
