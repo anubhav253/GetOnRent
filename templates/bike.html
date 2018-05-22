@@ -1,43 +1,43 @@
 {% extends 'layout.html' %} {% block body %}
 <div class="row">
   <div class="col-xs-6 item-photo">
-    <img class="card-img-top" style="margin-top: 5%; margin-left: 4%" height="100%" width="100%" src='{{ url_for("static",filename="bikes/" + product.aliasName + ".jpg") }}'
+    <img class="card-img-top" style="margin-top: 5%; margin-left: 4%" height="100%" width="100%" src='{{ url_for("static",filename="bikes/" + bike.aliasName + ".jpg") }}'
       alt="Card image cap">
   </div>
   <div class="col-xs-5" style="border:0px solid gray">
     <!-- Datos del vendedor y titulo del producto -->
-    <h2 style="font-family: -webkit-pictograph;">{{product.comapany}} {{product.model}}</h2>
+    <h2 style="font-family: -webkit-pictograph;">{{bike.comapany}} {{bike.model}}</h2>
     <table class="table table-striped">
       <tbody>
         <tr>
           <td>
             <B> Monthly Rent</B>
           </td>
-          <td>₹{{product.price}}</td>
+          <td>₹{{bike.price}}</td>
         </tr>
         <tr>
           <td>
             <B>Purchased Year</B>
           </td>
-          <td>{{product.year}}</td>
+          <td>{{bike.year}}</td>
         </tr>
         <tr>
           <td>
             <B>KM Driven</B>
           </td>
-          <td>{{product.kmdrive}}</td>
+          <td>{{bike.kmdrive}}</td>
         </tr>
         <tr>
           <td>
             <B>Security Deposit</B>
           </td>
-          <td>₹{{product.deposit}}**</td>
+          <td>₹{{bike.deposit}}**</td>
         </tr>
         <tr>
           <td>
             <B>Availability in</B>
           </td>
-          <td>{{product.city}}</td>
+          <td>{{bike.city}}</td>
         </tr>
       </tbody>
     </table>
@@ -58,7 +58,7 @@
   <div class="col-xs-11" style="margin-left: 2%">
     <div style="width:100%;border-top:1px solid silver">
       <p style="padding:15px;">
-        {{product.description}}
+        {{bike.description}}
       </p>
       <ul>
         <li>Fuel Type : Petrol</li>

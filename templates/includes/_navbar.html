@@ -19,14 +19,29 @@
           <a href="/contact">Contact Us</a>
         </li>
         <li>
-          <a href="/products">Bikes</a>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="margin-top: 9%">Products
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+              <li role="presentation">
+                <a role="menuitem" href="/bikes">Bikes</a>
+              </li>
+              <li role="presentation">
+                <a role="menuitem" href="#">Cars</a>
+              </li>
+              <li role="presentation">
+                <a role="menuitem" href="#">Furniture</a>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if session.admin %}
         <li>
-            <a href="/admin">Admin</a>
-          </li>
+          <a href="/admin">Admin</a>
+        </li>
         <li>
           <a href="/profile">Profile</a>
         </li>

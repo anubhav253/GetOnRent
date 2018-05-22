@@ -30,28 +30,28 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route('/products')
-def products():
+@app.route('/bikes')
+def bikes():
 
     cur = mysql.connection.cursor()
 
     result = cur.execute("SELECT * FROM bikes")
-    products = cur.fetchall()
+    bikes = cur.fetchall()
 
     if result > 0:
-        return render_template('products.html', products=products)
+        return render_template('bikes.html', bikes=bikes)
     else:
         msg = 'No Articles found.'
-        return render_template('products.html', msg=msg)
+        return render_template('bikes.html', msg=msg)
     
     cur.close()
 
-@app.route('/product/<string:id>/')
-def product(id):
+@app.route('/bike/<string:id>/')
+def bike(id):
     cur = mysql.connection.cursor()
     result = cur.execute("SELECT * FROM bikes where id = %s", [id])
-    product = cur.fetchone()
-    return render_template('product.html', product=product)
+    bike = cur.fetchone()
+    return render_template('bike.html', bike=bike)
 
 class ContactForm(Form):
     name = TextField("Name")
@@ -236,7 +236,7 @@ def add_product():
 
         flash('Product added', 'success')
 
-        return redirect(url_for('products'))
+        return redirect(url_for('bikes'))
 
     return render_template('add_product.html', form=form)
 
