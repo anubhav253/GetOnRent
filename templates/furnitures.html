@@ -1,0 +1,21 @@
+{% extends 'layout.html' %} {% block body %}
+<h1>Cars</h1>
+<ul class="list-group">
+    {% for furniture in furnitures %}
+    <a href="/furniture/{{furniture.id}}">
+    <div class="card card-layout">
+        <img class="card-img-top" height="180" width="100%" src='{{ url_for("static",filename="bikes/" + furniture.aliasName + ".jpg") }}'
+            alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-title">{{furniture.comapany}} {{furniture.model}}</h4>
+            <p class="card-text">
+                <B>Price</B> - {{furniture.price}} pm</p>
+            <p class="card-text block-with-text">
+                <I>{{furniture.description}}</I>
+            </p>
+        </div>
+    </div>
+    </a>
+    {% endfor %}
+</ul>
+{% endblock %}

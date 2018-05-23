@@ -41,7 +41,7 @@ def bikes():
     if result > 0:
         return render_template('bikes.html', bikes=bikes)
     else:
-        msg = 'No Articles found.'
+        msg = 'No Products found.'
         return render_template('bikes.html', msg=msg)
     
     cur.close()
@@ -52,6 +52,51 @@ def bike(id):
     result = cur.execute("SELECT * FROM bikes where id = %s", [id])
     bike = cur.fetchone()
     return render_template('bike.html', bike=bike)
+
+@app.route('/cars')
+def cars():
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM cars")
+    cars = cur.fetchall()
+
+    if result > 0:
+        return render_template('cars.html', cars=cars)
+    else:
+        msg = 'No Products found.'
+        return render_template('cars.html', msg=msg)
+    
+    cur.close()
+
+@app.route('/car/<string:id>/')
+def car(id):
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM cars where id = %s", [id])
+    car = cur.fetchone()
+    return render_template('car.html', car=car)
+
+@app.route('/furnitures')
+def furnitures():
+
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM bikes")
+    furnitures = cur.fetchall()
+
+    if result > 0:
+        return render_template('furnitures.html', furnitures=furnitures)
+    else:
+        msg = 'No Products found.'
+        return render_template('furnitures.html', msg=msg)
+    
+    cur.close()
+
+@app.route('/furniture/<string:id>/')
+def furniture(id):
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM bikes where id = %s", [id])
+    furniture = cur.fetchone()
+    return render_template('furniture.html', furniture=furniture)
+
 
 class ContactForm(Form):
     name = TextField("Name")

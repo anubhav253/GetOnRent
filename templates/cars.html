@@ -1,0 +1,21 @@
+{% extends 'layout.html' %} {% block body %}
+<h1>Cars</h1>
+<ul class="list-group">
+    {% for car in cars %}
+    <a href="/car/{{car.id}}">
+    <div class="card card-layout">
+        <img class="card-img-top" height="180" width="100%" src='{{ url_for("static",filename="cars/" + car.aliasName + ".jpg") }}'
+            alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-title">{{car.comapany}} {{car.model}}</h4>
+            <p class="card-text">
+                <B>Price</B> - {{car.price}} pm</p>
+            <p class="card-text block-with-text">
+                <I>{{car.description}}</I>
+            </p>
+        </div>
+    </div>
+    </a>
+    {% endfor %}
+</ul>
+{% endblock %}
