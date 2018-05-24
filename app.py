@@ -79,7 +79,7 @@ def car(id):
 def furnitures():
 
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM bikes")
+    result = cur.execute("SELECT * FROM furnitures")
     furnitures = cur.fetchall()
 
     if result > 0:
@@ -93,7 +93,7 @@ def furnitures():
 @app.route('/furniture/<string:id>/')
 def furniture(id):
     cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM bikes where id = %s", [id])
+    result = cur.execute("SELECT * FROM furnitures where id = %s", [id])
     furniture = cur.fetchone()
     return render_template('furniture.html', furniture=furniture)
 

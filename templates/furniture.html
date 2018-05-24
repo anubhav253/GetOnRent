@@ -1,12 +1,12 @@
 {% extends 'layout.html' %} {% block body %}
 <div class="row">
   <div class="col-xs-6 item-photo">
-    <img class="card-img-top" style="margin-top: 5%; margin-left: 4%" height="100%" width="100%" src='{{ url_for("static",filename="bikes/" + furniture.aliasName + ".jpg") }}'
+    <img class="card-img-top" style="margin-top: 5%; margin-left: 4%" height="100%" width="100%" src='{{ url_for("static",filename="furnitures/" + furniture.aliasName + ".jpg") }}'
       alt="Card image cap">
   </div>
   <div class="col-xs-5" style="border:0px solid gray">
     <!-- Datos del vendedor y titulo del producto -->
-    <h2 style="font-family: -webkit-pictograph;">{{furniture.comapany}} {{furniture.model}}</h2>
+    <h2 style="font-family: -webkit-pictograph;">{{furniture.comapany}} {{furniture.type}} {{furniture.size}}</h2>
     <table class="table table-striped">
       <tbody>
         <tr>
@@ -20,12 +20,6 @@
             <B>Purchased Year</B>
           </td>
           <td>{{furniture.year}}</td>
-        </tr>
-        <tr>
-          <td>
-            <B>KM Driven</B>
-          </td>
-          <td>{{furniture.kmdrive}}</td>
         </tr>
         <tr>
           <td>
