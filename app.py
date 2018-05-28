@@ -5,6 +5,7 @@ from passlib.hash import sha256_crypt
 from functools import wraps
 from flask_session import Session
 import os
+import paypalrestsdk
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -13,6 +14,13 @@ Session(app)
 
 dataCon = json.load(open('config.json'))
 dbCred = dataCon["dbCred"]
+paypal = dataCon["paypal"]
+
+paypalrestsdk.configure({
+  "mode": "sandbox", # sandbox or live
+  "client_id": paypal["client_id"],
+  "client_secret": paypal["client_secret"] })
+
 
 app.config['MYSQL_HOST'] = dbCred["host"]
 app.config['MYSQL_USER'] = dbCred["user"]
@@ -241,6 +249,48 @@ def admin():
 @is_logged_in
 def buy():
     return render_template('buy.html')
+
+@app.route('/payment', methods=['POST'])
+def payment():
+    payment = paypalrestsdk.Payment({
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"},
+        "redirect_urls": {
+            "return_url": "http://localhost:3000/payment/execute",
+            "cancel_url": "http://localhost:3000/"},
+        "transactions": [{
+            "item_list": {
+                "items": [{
+                    "name": "testitem",
+                    "sku": "12345",
+                    "price": "50.00",
+                    "currency": "USD",
+                    "quantity": 1}]},
+            "amount": {
+                "total": "50.00",
+                "currency": "USD"},
+            "description": "This is the payment transaction description."}]})
+
+    if payment.create():
+        print("Payment Successful")
+    else:
+        print(payment.error)
+
+    return jsonify({'paymentID':payment.id})
+
+@app.route('/execute', methods=['POST'])
+def execute():
+    success = False
+
+    payment = paypalrestsdk.Payment.find(request.form['paymentID'])
+    if payment.execute({'payer_id' : request.form['payerID']}):
+        print('Execute success')
+        success = True
+    else:
+        print(payment.error)
+    return jsonify({'success' : success})
+
 
 class AddProduct(Form):
     comapany = StringField('Comapany', [validators.Length(min=1, max=100)])
