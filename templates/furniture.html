@@ -1,7 +1,7 @@
 {% extends 'layout.html' %} {% block body %}
 <div class="row">
   <div class="col-xs-6 item-photo">
-    <img class="card-img-top" style="margin-top: 5%; margin-left: 4%" height="100%" width="100%" src='{{ url_for("static",filename="furnitures/" + furniture.aliasName + ".jpg") }}'
+    <img class="card-img-top" style="margin-top: 5%; margin-left: 4%" height="100%" width="100%" src='{{ feConfig.s3link + "/images/furnitures/" + furniture.aliasName + ".jpg" }}'
       alt="Card image cap">
   </div>
   <div class="col-xs-5" style="border:0px solid gray">

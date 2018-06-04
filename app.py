@@ -15,6 +15,7 @@ Session(app)
 dataCon = json.load(open('config.json'))
 dbCred = dataCon["dbCred"]
 paypal = dataCon["paypal"]
+feConfig = dataCon["feConfig"]
 
 paypalrestsdk.configure({
   "mode": "sandbox", # sandbox or live
@@ -32,11 +33,11 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('home.html', feConfig=feConfig)
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', feConfig=feConfig)
 
 @app.route('/bikes')
 def bikes():
@@ -47,10 +48,10 @@ def bikes():
     bikes = cur.fetchall()
 
     if result > 0:
-        return render_template('bikes.html', bikes=bikes)
+        return render_template('bikes.html', bikes=bikes, feConfig=feConfig)
     else:
         msg = 'No Products found.'
-        return render_template('bikes.html', msg=msg)
+        return render_template('bikes.html', msg=msg, feConfig=feConfig)
     
     cur.close()
 
@@ -59,7 +60,7 @@ def bike(id):
     cur = mysql.connection.cursor()
     result = cur.execute("SELECT * FROM bikes where id = %s", [id])
     bike = cur.fetchone()
-    return render_template('bike.html', bike=bike)
+    return render_template('bike.html', bike=bike, feConfig=feConfig)
 
 @app.route('/cars')
 def cars():
@@ -69,10 +70,10 @@ def cars():
     cars = cur.fetchall()
 
     if result > 0:
-        return render_template('cars.html', cars=cars)
+        return render_template('cars.html', cars=cars, feConfig=feConfig)
     else:
         msg = 'No Products found.'
-        return render_template('cars.html', msg=msg)
+        return render_template('cars.html', msg=msg, feConfig=feConfig)
     
     cur.close()
 
@@ -81,7 +82,7 @@ def car(id):
     cur = mysql.connection.cursor()
     result = cur.execute("SELECT * FROM cars where id = %s", [id])
     car = cur.fetchone()
-    return render_template('car.html', car=car)
+    return render_template('car.html', car=car, feConfig=feConfig)
 
 @app.route('/furnitures')
 def furnitures():
@@ -91,10 +92,10 @@ def furnitures():
     furnitures = cur.fetchall()
 
     if result > 0:
-        return render_template('furnitures.html', furnitures=furnitures)
+        return render_template('furnitures.html', furnitures=furnitures, feConfig=feConfig)
     else:
         msg = 'No Products found.'
-        return render_template('furnitures.html', msg=msg)
+        return render_template('furnitures.html', msg=msg, feConfig=feConfig)
     
     cur.close()
 
@@ -103,7 +104,7 @@ def furniture(id):
     cur = mysql.connection.cursor()
     result = cur.execute("SELECT * FROM furnitures where id = %s", [id])
     furniture = cur.fetchone()
-    return render_template('furniture.html', furniture=furniture)
+    return render_template('furniture.html', furniture=furniture, feConfig=feConfig)
 
 
 class ContactForm(Form):
@@ -128,8 +129,8 @@ def contact():
         cur.close()
 
         flash('Your message has been delivered.', 'success')
-        return redirect(url_for('index'))
-    return render_template('contact.html', form=form)
+        return redirect(url_for('index'), feConfig=feConfig)
+    return render_template('contact.html', form=form, feConfig=feConfig)
 
 class RegisterForm(Form):
     name = StringField('Name', [validators.Length(min=1, max=50)])
@@ -160,8 +161,8 @@ def register():
         cur.close()
 
         flash('You are now registered and can log in', 'success')
-        return redirect(url_for('index'))
-    return render_template('register.html', form=form)
+        return redirect(url_for('index'), feConfig=feConfig)
+    return render_template('register.html', form=form, feConfig=feConfig)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -184,47 +185,47 @@ def login():
                 session["admin"] = True
 
                 flash('You are now logged in.', 'success')
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile'), feConfig=feConfig)
 
             elif sha256_crypt.verify(password_candidate, password):
                 session['logged_in'] = True
                 session['username'] = username
 
                 flash('You are now logged in.', 'success')
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile'), feConfig=feConfig)
             else:
                 error = 'Invalid user'
-                return render_template('login.html', error=error)
+                return render_template('login.html', error=error, feConfig=feConfig)
             
             cur.close()
 
         else:
             error = 'Username not found'
-            return render_template('login.html', error=error)
+            return render_template('login.html', error=error, feConfig=feConfig)
 
-    return render_template('login.html')  
+    return render_template('login.html', feConfig=feConfig)  
 
 def is_logged_in(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'logged_in' in session:
-            return f(*args, **kwargs)
+            return f(*args, **kwargs, feConfig=feConfig)
         else:
             flash('Unauthorized, Please login', 'danger')
-            return redirect(url_for('login'))
+            return redirect(url_for('login'), feConfig=feConfig)
     return wrap
 
 def is_admin(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'admin' in session:
-            return f(*args, **kwargs)
+            return f(*args, **kwargs, feConfig=feConfig)
         elif 'logged_in' in session:
             flash('Unauthorized, Please login with correct username', 'danger')
-            return redirect(url_for('login'))
+            return redirect(url_for('login'), feConfig=feConfig)
         else:
             flash('Unauthorized, Please login', 'danger')
-            return redirect(url_for('login'))
+            return redirect(url_for('login'), feConfig=feConfig)
     return wrap
 
 @app.route('/logout')
@@ -232,23 +233,23 @@ def is_admin(f):
 def logout():
     session.clear()
     flash('You are now logged out', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('login'), feConfig=feConfig)
 
 @app.route('/profile')
 @is_logged_in
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', feConfig=feConfig)
 
 
 @app.route('/admin')
 @is_admin
 def admin():
-    return render_template('admin.html')
+    return render_template('admin.html', feConfig=feConfig)
 
 @app.route('/buy')
 @is_logged_in
 def buy():
-    return render_template('buy.html')
+    return render_template('buy.html', feConfig=feConfig)
 
 @app.route('/payment', methods=['POST'])
 def payment():
@@ -277,7 +278,7 @@ def payment():
     else:
         print(payment.error)
 
-    return jsonify({'paymentID':payment.id})
+    return jsonify({'paymentID':payment.id}, feConfig=feConfig)
 
 @app.route('/execute', methods=['POST'])
 def execute():
@@ -289,7 +290,7 @@ def execute():
         success = True
     else:
         print(payment.error)
-    return jsonify({'success' : success})
+    return jsonify({'success' : success}, feConfig=feConfig)
 
 
 class AddProduct(Form):
@@ -305,9 +306,9 @@ class AddProduct(Form):
     aliasName = StringField('Alias Name', [validators.Length(max=50)])
     details = TextAreaField('Details', [validators.Length(max=500)])
 
-# Add Article
+# Add Product
 @app.route('/add_product', methods=['GET', 'POST'])
-@is_logged_in
+@is_admin
 def add_product():
     form = AddProduct(request.form)
     if request.method == 'POST' and form.validate():
@@ -331,9 +332,9 @@ def add_product():
 
         flash('Product added', 'success')
 
-        return redirect(url_for('bikes'))
+        return redirect(url_for('bikes'), feConfig=feConfig)
 
-    return render_template('add_product.html', form=form)
+    return render_template('add_product.html', form=form, feConfig=feConfig)
 
 if __name__ == '__main__':
     app.run(debug=True)
