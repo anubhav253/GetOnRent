@@ -6,6 +6,7 @@ from functools import wraps
 from flask_session import Session
 import os
 import paypalrestsdk
+import smtplib
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -16,6 +17,14 @@ dataCon = json.load(open('config.json'))
 dbCred = dataCon["dbCred"]
 paypal = dataCon["paypal"]
 feConfig = dataCon["feConfig"]
+
+senderEmail = dataCon["gmailCred"]["email"]
+senderPassword = dataCon["gmailCred"]["passWord"]
+supportEmail = dataCon["gmailCred"]["supportEmail"]
+
+emailClient = smtplib.SMTP('smtp.gmail.com', 587)
+emailClient.starttls()
+
 
 paypalrestsdk.configure({
   "mode": "sandbox", # sandbox or live
@@ -106,6 +115,16 @@ def furniture(id):
     furniture = cur.fetchone()
     return render_template('furniture.html', furniture=furniture, feConfig=feConfig)
 
+def sendEmail(Email, message):
+    try:
+        emailClient.login(senderEmail, senderPassword)
+        print("Sending Message to " + Email)
+        emailClient.sendmail(senderEmail, Email, message)
+        print("Message sent")
+        emailClient.quit()
+    except Exception as e:
+        print("Something went wrong in sending email")
+        print(e)
 
 class ContactForm(Form):
     name = TextField("Name")
@@ -123,13 +142,20 @@ def contact():
         subject = form.subject.data
         message = form.message.data
 
+        msg = "An Application has been submitted by\n"
+        msg = msg + "Name = " + name + "\n"
+        msg = msg + "Email =" + email + "\n"
+        msg = msg + "Subject" + subject + "\n"
+        msg = msg + "Message" + message 
+
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO contactus(name, email, subject, message) VALUES(%s, %s, %s, %s)", (name, email, subject, message))
         mysql.connection.commit()
         cur.close()
 
         flash('Your message has been delivered.', 'success')
-        return redirect(url_for('index'), feConfig=feConfig)
+        sendEmail(supportEmail, msg)
+        return redirect(url_for('index'))
     return render_template('contact.html', form=form, feConfig=feConfig)
 
 class RegisterForm(Form):
