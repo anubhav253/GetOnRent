@@ -187,7 +187,7 @@ def register():
         cur.close()
 
         flash('You are now registered and can log in', 'success')
-        return redirect(url_for('index'), feConfig=feConfig)
+        return redirect(url_for('index'))
     return render_template('register.html', form=form, feConfig=feConfig)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -211,14 +211,14 @@ def login():
                 session["admin"] = True
 
                 flash('You are now logged in.', 'success')
-                return redirect(url_for('profile'), feConfig=feConfig)
+                return redirect(url_for('profile'))
 
             elif sha256_crypt.verify(password_candidate, password):
                 session['logged_in'] = True
                 session['username'] = username
 
                 flash('You are now logged in.', 'success')
-                return redirect(url_for('profile'), feConfig=feConfig)
+                return redirect(url_for('profile'))
             else:
                 error = 'Invalid user'
                 return render_template('login.html', error=error, feConfig=feConfig)
@@ -235,23 +235,23 @@ def is_logged_in(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'logged_in' in session:
-            return f(*args, **kwargs, feConfig=feConfig)
+            return f(*args, **kwargs)
         else:
             flash('Unauthorized, Please login', 'danger')
-            return redirect(url_for('login'), feConfig=feConfig)
+            return redirect(url_for('login'))
     return wrap
 
 def is_admin(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'admin' in session:
-            return f(*args, **kwargs, feConfig=feConfig)
+            return f(*args, **kwargs)
         elif 'logged_in' in session:
             flash('Unauthorized, Please login with correct username', 'danger')
-            return redirect(url_for('login'), feConfig=feConfig)
+            return redirect(url_for('login'))
         else:
             flash('Unauthorized, Please login', 'danger')
-            return redirect(url_for('login'), feConfig=feConfig)
+            return redirect(url_for('login'))
     return wrap
 
 @app.route('/logout')
@@ -259,7 +259,7 @@ def is_admin(f):
 def logout():
     session.clear()
     flash('You are now logged out', 'success')
-    return redirect(url_for('login'), feConfig=feConfig)
+    return redirect(url_for('login'))
 
 @app.route('/profile')
 @is_logged_in
@@ -358,7 +358,7 @@ def add_product():
 
         flash('Product added', 'success')
 
-        return redirect(url_for('bikes'), feConfig=feConfig)
+        return redirect(url_for('bikes'))
 
     return render_template('add_product.html', form=form, feConfig=feConfig)
 
